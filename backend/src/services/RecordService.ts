@@ -13,16 +13,9 @@ export class RecordService {
   }
 
   public async createRecord(recordData: AddRecordDTO) {
-    const newItem = Record.create({
-      name: recordData.name,
-      address: recordData.address,
-      amount: recordData.amount,
-      role: recordData.role,
-      status: recordData.status,
-    });
-  
-    return Record.save(newItem);
-  }
+    const newRecord = Record.create({ ...recordData });
+    return Record.save(newRecord);
+  }  
 
   public async updateRecord(id: number, updatedRecord: EditRecordDTO) {
     await Record.update(id, updatedRecord);
