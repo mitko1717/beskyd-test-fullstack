@@ -14,9 +14,7 @@
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "autoprefixer": "^10.4.14",
-    "class-transformer": "^0.5.1",
     "formik": "^2.2.9",
-    "pg": "^8.10.0",
     "postcss": "^8.4.23",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,13 +22,11 @@
     "react-scripts": "5.0.1",
     "styled-components": "^6.0.0-rc.1",
     "tailwindcss": "^3.3.2",
-    "typeorm": "^0.3.15",
-    "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
     "yup": "^1.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"cd backend && PORT=5000 npm start\" \"cd src && npm start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -55,6 +51,8 @@
   },
   "devDependencies": {
     "@types/node": "^20.1.0",
-    "ts-node": "^10.9.1"
+    "concurrently": "^8.0.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
   }
 }

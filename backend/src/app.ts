@@ -16,11 +16,6 @@ connectDB()
     app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
       res.status(500).json({ error: 'Internal Server Error' });
     });
-
-    // Start the server
-    app.listen(5000, () => {
-      console.log('Server is running on port 5000');
-    });
   })
   .catch((error) => {
     console.error('Database connection error:', error);
