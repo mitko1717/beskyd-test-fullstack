@@ -6,30 +6,30 @@ import { Field, useFormik, Formik } from "formik";
 import { FormControl, Grid, Input, InputLabel, MenuItem, Select } from "@mui/material";
 import { recordService } from "../service/RecordService";
 import toast from "react-hot-toast";
-import { IAddRecord } from "../types/addRecord";
 import { useMutation, useQueryClient } from "react-query";
 import { REQ_KEY } from "../query-const";
 import { AxiosError } from "axios";
 import { IModalProps } from "../models/interfaces";
+import { IEditRecord } from "../types/editRecord";
 import { formSchema } from "../helpers/formSchema";
-import { initialValues } from "../helpers/initValAdd";
+import { initialValues } from "../helpers/initValEdit";
 import { style } from "../helpers/modalStyle";
 
-export default function AddModal({ isOpen, handleOpenModal }: IModalProps) {
+export default function EditModal({ isOpen, handleOpenModal, id }: IModalProps) {
   const queryClient = useQueryClient();
   
-  const addRecord = useMutation((formData: IAddRecord) => recordService.createRecord(formData), {
+  const editRecord = useMutation((formData: IEditRecord) => recordService.updateRecord(id!, formData), {
     onSuccess: () => {
       queryClient.refetchQueries(REQ_KEY);
       handleOpenModal()
-      toast.success('record added successfully!');
+      toast.success('record edited successfully!');
     },
     onError: (err: AxiosError) => {
-      toast.error(`wasnt added! ${err.message}`);
+      toast.error(`wasnt edited! ${err.message}`);
     }
   });
 
-  const handleSubmit = (values: IAddRecord) => {
+  const handleSubmit = (values: IEditRecord) => {
     const formData = {
       name: values.name,
       address: values.address,
@@ -37,7 +37,7 @@ export default function AddModal({ isOpen, handleOpenModal }: IModalProps) {
       role: values.role,
       status: values.status,
     };
-    addRecord.mutate(formData)
+    editRecord.mutate(formData)
   };
 
   const formik = useFormik({
@@ -57,6 +57,7 @@ export default function AddModal({ isOpen, handleOpenModal }: IModalProps) {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
+        <span className="text-xs font-bold">editing record with {id} id</span>
         <Formik
           initialValues={initialValues}
           validationSchema={formSchema}

@@ -12,3 +12,9 @@ export interface IParams {
   status: string;
   role: string;
 }
+
+export interface IModalProps {
+  id?: number
+  isOpen: boolean;
+  handleOpenModal: () => void;
+}

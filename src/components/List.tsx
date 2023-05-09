@@ -8,12 +8,14 @@ import { IParams, IRecord } from "../models/interfaces";
 import { toast } from "react-hot-toast";
 import { AxiosError } from "axios";
 import AddModal from "./AddModal";
-import EditModal from "./EditModel";
-const REQ_KEY = "records";
+import EditModal from "./EditModal";
+import { REQ_KEY } from "../query-const";
 
 const List = () => {
   const queryClient = useQueryClient();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [idToEdit, setIsToEdit] = useState<number>(1)
 
   const handleAddModal = () => {
     setIsAddModalOpen((prev) => !prev);
@@ -53,11 +55,9 @@ const List = () => {
     refetchOnWindowFocus: false,
   });
 
-  const handleButtonEdit = (row: IRecord) => {
-    console.log("Button clicked for row:", row);
+  const handleEditModal = () => {
+    setIsEditModalOpen((prev) => !prev);
   };
-
-  const handleButtonAdd = () => {};
 
   const handleButtonDelete = (row: IRecord) => {
     deleteRecord.mutate(row.id);
@@ -93,7 +93,7 @@ const List = () => {
         <>
           <Button
             variant="contained"
-            onClick={() => handleButtonEdit(params.row)}
+            onClick={() => {setIsToEdit(params.row.id); handleEditModal()}}
           >
             &#x270D;
           </Button>
@@ -111,7 +111,7 @@ const List = () => {
   return (
     <div>
       <AddModal isOpen={isAddModalOpen} handleOpenModal={handleAddModal} />
-      <EditModal isOpen={isAddModalOpen} handleOpenModal={handleAddModal} />
+      <EditModal isOpen={isEditModalOpen} handleOpenModal={handleEditModal} id={idToEdit}/>
       <Button
         sx={{ margin: "1rem 2rem" }}
         variant="contained"
