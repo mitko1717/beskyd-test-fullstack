@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { IAddRecord } from '../types/addRecord';
-import { IEditRecord } from '../types/editRecord';
+import axios from "axios";
+import { IAddRecord } from "../types/addRecord";
+import { IEditRecord } from "../types/editRecord";
 
-const API_BASE_URL = 'http://localhost:5000/api/records';
+const API_BASE_URL = "http://localhost:5000/api/records";
 
 class RecordService {
   public async getAllRecords(name?: string, status?: string, role?: string) {
@@ -11,7 +11,7 @@ class RecordService {
       const response = await axios.get(API_BASE_URL, { params });
       return response.data;
     } catch (error) {
-      throw new Error('Failed to fetch records');
+      throw new Error("Failed to fetch records");
     }
   }
 
@@ -20,7 +20,7 @@ class RecordService {
       const response = await axios.get(`${API_BASE_URL}/${id}`);
       return response.data;
     } catch (error) {
-      throw new Error('Failed to fetch record');
+      throw new Error("Failed to fetch record");
     }
   }
 
@@ -29,7 +29,7 @@ class RecordService {
       const response = await axios.post(API_BASE_URL, recordData);
       return response.data;
     } catch (error) {
-      throw new Error('Failed to create record');
+      throw new Error("Failed to create record");
     }
   }
 
@@ -38,7 +38,7 @@ class RecordService {
       const response = await axios.put(`${API_BASE_URL}/${id}`, updatedRecord);
       return response.data;
     } catch (error) {
-      throw new Error('Failed to update record');
+      throw new Error("Failed to update record");
     }
   }
 
@@ -47,7 +47,7 @@ class RecordService {
       const response = await axios.delete(`${API_BASE_URL}/${id}`);
       return response.data;
     } catch (error) {
-      throw new Error('Failed to delete record');
+      throw new Error("Failed to delete record");
     }
   }
 }

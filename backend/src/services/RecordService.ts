@@ -1,6 +1,6 @@
-import { Record } from '../entity/Record';
-import { AddRecordDTO } from '../dtos/addRecord.dto';
-import { EditRecordDTO } from '../dtos/editRecord.dto';
+import { Record } from "../entity/Record";
+import { AddRecordDTO } from "../dtos/addRecord.dto";
+import { EditRecordDTO } from "../dtos/editRecord.dto";
 
 export class RecordService {
   public async getAllRecords() {
@@ -15,7 +15,7 @@ export class RecordService {
   public async createRecord(recordData: AddRecordDTO) {
     const newRecord = Record.create({ ...recordData });
     return Record.save(newRecord);
-  }  
+  }
 
   public async updateRecord(id: number, updatedRecord: EditRecordDTO) {
     await Record.update(id, updatedRecord);

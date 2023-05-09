@@ -7,8 +7,8 @@ import * as yup from "yup";
 import { FormControl, Grid, Input, InputLabel } from "@mui/material";
 
 interface IModalProps {
-  isOpen: boolean
-  handleOpenModal: () => void
+  isOpen: boolean;
+  handleOpenModal: () => void;
 }
 
 export type IInitialValues = {
@@ -49,7 +49,7 @@ export default function AddModal({ isOpen, handleOpenModal }: IModalProps) {
     const formData = {
       name: values.name,
       email: values.email,
-    }
+    };
     //   closeModal();
   };
 
