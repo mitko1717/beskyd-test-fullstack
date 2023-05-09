@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IAddRecord } from '../types/addRecord';
 import { IEditRecord } from '../types/editRecord';
 
-const API_BASE_URL = 'http://localhost:3000/api/records';
+const API_BASE_URL = 'http://localhost:5000/api/records';
 
 export class RecordService {
   public async getAllRecords(name?: string, status?: string, role?: string) {
