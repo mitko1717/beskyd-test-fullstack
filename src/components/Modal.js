@@ -1,22 +1,38 @@
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
 };
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Modal from "@mui/material/Modal";
-import { Field, useFormik, Formik } from "formik";
-import * as yup from "yup";
-import { FormControl, Grid, Input, InputLabel } from "@mui/material";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __importStar(require("react"));
+var Box_1 = __importDefault(require("@mui/material/Box"));
+var Button_1 = __importDefault(require("@mui/material/Button"));
+var Modal_1 = __importDefault(require("@mui/material/Modal"));
+var formik_1 = require("formik");
+var yup = __importStar(require("yup"));
+var material_1 = require("@mui/material");
 var style = {
     position: "absolute",
     top: "50%",
@@ -28,7 +44,7 @@ var style = {
     boxShadow: 24,
     p: 4,
 };
-export default function BasicModal() {
+function BasicModal() {
     var _a = React.useState(false), isModalOpen = _a[0], setIsModalOpen = _a[1];
     var formSchema = yup.object().shape({
         name: yup
@@ -56,10 +72,26 @@ export default function BasicModal() {
         };
         //   closeModal();
     };
-    var formik = useFormik({
+    var formik = (0, formik_1.useFormik)({
         initialValues: initialValues,
         validationSchema: formSchema,
         onSubmit: function (values) { return handleSubmit(values); },
     });
-    return (_jsx(Modal, __assign({ open: isModalOpen, "aria-labelledby": "modal-modal-title", "aria-describedby": "modal-modal-description" }, { children: _jsx(Box, __assign({ sx: style }, { children: _jsx(Formik, __assign({ initialValues: initialValues, validationSchema: formSchema, onSubmit: function () { } }, { children: _jsx("form", __assign({ onSubmit: formik.handleSubmit }, { children: _jsxs(Grid, __assign({ container: true, spacing: 2 }, { children: [_jsx(Grid, __assign({ item: true, xs: 12 }, { children: _jsxs(FormControl, __assign({ fullWidth: true, error: formik.touched.name && Boolean(formik.errors.name) }, { children: [_jsx(InputLabel, __assign({ htmlFor: "name" }, { children: "name" })), _jsx(Field, { name: "name", value: formik.values.name, type: "name", as: Input, onChange: formik.handleChange, onBlur: formik.handleBlur }), formik.errors.name && formik.touched.name && (_jsx("div", __assign({ style: { color: "red" } }, { children: formik.errors.name })))] })) })), _jsx(Grid, __assign({ item: true, xs: 12 }, { children: _jsxs(FormControl, __assign({ fullWidth: true, error: formik.touched.email && Boolean(formik.errors.email) }, { children: [_jsx(InputLabel, __assign({ htmlFor: "email" }, { children: "email" })), _jsx(Field, { name: "email", value: formik.values.email, type: "email", as: Input, onChange: formik.handleChange, onBlur: formik.handleBlur }), formik.errors.email && formik.touched.email && (_jsx("div", __assign({ style: { color: "red" } }, { children: formik.errors.email })))] })) })), _jsx(Button, __assign({ variant: "contained", type: "submit", style: { marginTop: 20 } }, { children: "add" }))] })) })) })) })) })));
+    return (React.createElement(Modal_1.default, { open: isModalOpen, "aria-labelledby": "modal-modal-title", "aria-describedby": "modal-modal-description" },
+        React.createElement(Box_1.default, { sx: style },
+            React.createElement(formik_1.Formik, { initialValues: initialValues, validationSchema: formSchema, onSubmit: function () { } },
+                React.createElement("form", { onSubmit: formik.handleSubmit },
+                    React.createElement(material_1.Grid, { container: true, spacing: 2 },
+                        React.createElement(material_1.Grid, { item: true, xs: 12 },
+                            React.createElement(material_1.FormControl, { fullWidth: true, error: formik.touched.name && Boolean(formik.errors.name) },
+                                React.createElement(material_1.InputLabel, { htmlFor: "name" }, "name"),
+                                React.createElement(formik_1.Field, { name: "name", value: formik.values.name, type: "name", as: material_1.Input, onChange: formik.handleChange, onBlur: formik.handleBlur }),
+                                formik.errors.name && formik.touched.name && (React.createElement("div", { style: { color: "red" } }, formik.errors.name)))),
+                        React.createElement(material_1.Grid, { item: true, xs: 12 },
+                            React.createElement(material_1.FormControl, { fullWidth: true, error: formik.touched.email && Boolean(formik.errors.email) },
+                                React.createElement(material_1.InputLabel, { htmlFor: "email" }, "email"),
+                                React.createElement(formik_1.Field, { name: "email", value: formik.values.email, type: "email", as: material_1.Input, onChange: formik.handleChange, onBlur: formik.handleBlur }),
+                                formik.errors.email && formik.touched.email && (React.createElement("div", { style: { color: "red" } }, formik.errors.email)))),
+                        React.createElement(Button_1.default, { variant: "contained", type: "submit", style: { marginTop: 20 } }, "add")))))));
 }
+exports.default = BasicModal;

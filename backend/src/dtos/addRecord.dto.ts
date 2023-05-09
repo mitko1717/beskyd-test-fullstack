@@ -1,7 +1,7 @@
 export class AddRecordDTO {
-  amount: number;
-  name: string;
-  address: string;
-  role: string;
-  status: string;
+  amount!: number;
+  name!: string;
+  address!: string;
+  role!: string;
+  status!: string;
 }

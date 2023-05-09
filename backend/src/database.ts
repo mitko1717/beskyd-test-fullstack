@@ -9,7 +9,7 @@ const connectDB = async () => {
       port: 5432,
       username: process.env.DB_USERNAME || 'postgres',
       password: process.env.DB_PASSWORD || '1',
-      database: process.env.DB_NAME || 'record',
+      database: process.env.DB_NAME || 'records',
       entities: [Record],
       synchronize: true,
     };

@@ -3,20 +3,20 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 @Entity()
 export class Record extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column()
-  address: string;
+  address!: string;
 
   @Column()
-  amount: number;
+  amount!: number;
 
   @Column()
-  role: string;
+  role!: string;
 
   @Column()
-  status: string;
+  status!: string;
 }

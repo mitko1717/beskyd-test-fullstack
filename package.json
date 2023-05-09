@@ -26,7 +26,9 @@
     "yup": "^1.1.1"
   },
   "scripts": {
-    "start": "concurrently \"cd backend && PORT=5000 npm start\" \"cd src && npm start\"",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -50,9 +52,11 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^20.1.0",
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.1.1",
     "concurrently": "^8.0.1",
+    "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "typescript": "^4.5.4"
   }
 }
