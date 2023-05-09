@@ -6,3 +6,9 @@ export interface IRecord {
     role: string
     status: string
   }
+
+export interface IParams {
+  name: string;
+  status: string;
+  role: string;
+}

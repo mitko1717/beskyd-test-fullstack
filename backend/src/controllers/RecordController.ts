@@ -49,7 +49,7 @@ export class RecordController {
           id: recordId
       });
 
-      if (updatedRecord) return res.status(404).json({ error: 'Record not found' });
+      if (!updatedRecord) return res.status(404).json({ error: 'Record not found' });
       res.json(updatedRecord);
     } catch (error) {
       next(error);

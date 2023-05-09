@@ -9,9 +9,6 @@ import { FormControl, Grid, Input, InputLabel } from "@mui/material";
 export type IInitialValues = {
   name: string;
   email: string;
-  number: number;
-  password: string;
-  confirmPassword: string;
 };
 
 const style = {
@@ -40,9 +37,6 @@ export default function BasicModal() {
   const initialValues: IInitialValues = {
     name: "",
     email: "",
-    number: 1,
-    password: "",
-    confirmPassword: "",
   };
 
   const handleSubmit = (values: IInitialValues) => {
@@ -51,9 +45,6 @@ export default function BasicModal() {
     const formData = {
       name: values.name,
       email: values.email,
-      number: values.number,
-      password: "",
-      confirmPassword: "",
     }
     //   closeModal();
   };

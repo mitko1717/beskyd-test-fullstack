@@ -1,21 +1,27 @@
 import { Alert, Button, CircularProgress } from '@mui/material';
 import React, { useState } from 'react'
-import { QueryKey, useQuery } from 'react-query';
-import { RecordService } from '../service/RecordService';
+import { QueryKey, useMutation, useQuery, useQueryClient } from 'react-query';
+import { recordService } from '../service/RecordService';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Filters from './Filters';
-import { IRecord } from '../models/interfaces';
-
-interface IParams {
-  name: string;
-  status: string;
-  role: string;
-}
-
+import { IParams, IRecord } from '../models/interfaces';
+import { toast } from 'react-hot-toast';
+import { AxiosError } from 'axios';
 const REQ_KEY = 'records'
-const recordService = new RecordService();
 
 const List = () => {
+  const queryClient = useQueryClient();
+
+  const deleteRecord = useMutation((id: number) => recordService.deleteRecord(id), {
+    onSuccess: () => {
+      queryClient.refetchQueries(REQ_KEY);
+      toast.success('deleted successfully!');
+    },
+    onError: (e: AxiosError) => {
+      toast.error(`it wasnt deleted! ${e.message}`);
+    }
+  });
+
   const [filters, setFilters] = useState({
     name: '',
     status: '',
@@ -29,28 +35,22 @@ const List = () => {
 
   const fetchR = async ({ queryKey }: { queryKey: QueryKey }) => {
     const [, params] = queryKey as [string, IParams];
-    const {
-      name = '',
-      status = '',
-      role = ''
-    } = params;
-    return recordService.getAllRecords(
-      name,
-      status,
-      role
-    );
+    const { name = '', status = '', role = '' } = params;
+    return recordService.getAllRecords(name, status, role);
   };
 
-  const {
-    data,
-    isLoading,
-    isError
-  } = useQuery<IRecord[]>(queryK, fetchR, {
+  const { data, isLoading, isError } = useQuery<IRecord[]>(queryK, fetchR, {
     refetchOnWindowFocus: false
   });
 
-  const handleButtonClick = (row: number) => {
+  const handleButtonEdit = (row: IRecord) => {
     console.log('Button clicked for row:', row);
+  };
+
+  const handleButtonAdd = () => {};
+
+  const handleButtonDelete = (row: IRecord) => {
+    deleteRecord.mutate(row.id)
   };
 
   const handleFilterChange = (field: keyof typeof filters, value: string) => {
@@ -78,9 +78,12 @@ const List = () => {
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 120,
+      width: 140,
       renderCell: (params) => (
-        <Button variant="contained" onClick={() => handleButtonClick(params.row)}>edit</Button>
+        <>
+          <Button variant="contained" onClick={() => handleButtonEdit(params.row)}>&#x270D;</Button>
+          <Button variant="contained" onClick={() => handleButtonDelete(params.row)}>&#x2715;</Button>
+        </>
       ), 
     },
   ];
