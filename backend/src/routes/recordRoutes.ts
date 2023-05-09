@@ -11,3 +11,13 @@ router.put('/:id', recordController.updateRecord);
 router.delete('/:id', recordController.deleteRecord);
 
 export default router;
+
+// add record
+// POST http://localhost:5000/api/records/
+// {
+//     "name": "John Dima",
+//     "address": "18 Main St",
+//     "amount": 1700,
+//     "role": "Admin",
+//     "status": "Open"
+//   }

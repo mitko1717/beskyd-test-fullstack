@@ -6,6 +6,11 @@ import { Field, useFormik, Formik } from "formik";
 import * as yup from "yup";
 import { FormControl, Grid, Input, InputLabel } from "@mui/material";
 
+interface IModalProps {
+  isOpen: boolean
+  handleOpenModal: () => void
+}
+
 export type IInitialValues = {
   name: string;
   email: string;
@@ -23,8 +28,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal() {
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
+export default function AddModal({ isOpen, handleOpenModal }: IModalProps) {
   const formSchema = yup.object().shape({
     name: yup
       .string()
@@ -57,8 +61,8 @@ export default function BasicModal() {
 
   return (
     <Modal
-      open={isModalOpen}
-    //   onClose={() => closeModal()}
+      open={isOpen}
+      onClose={() => handleOpenModal()}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >

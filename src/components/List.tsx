@@ -7,10 +7,17 @@ import Filters from './Filters';
 import { IParams, IRecord } from '../models/interfaces';
 import { toast } from 'react-hot-toast';
 import { AxiosError } from 'axios';
+import AddModal from './AddModal';
+import EditModal from './EditModel';
 const REQ_KEY = 'records'
 
 const List = () => {
   const queryClient = useQueryClient();
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const handleAddModal = () => {
+    setIsAddModalOpen(prev => !prev);
+  };
 
   const deleteRecord = useMutation((id: number) => recordService.deleteRecord(id), {
     onSuccess: () => {
@@ -90,7 +97,9 @@ const List = () => {
 
   return (
     <div>
-      <Button sx={{margin: '1rem 2rem'}} variant="contained">add record</Button>
+      <AddModal isOpen={isAddModalOpen} handleOpenModal={handleAddModal}/>
+      <EditModal isOpen={isAddModalOpen} handleOpenModal={handleAddModal}/>
+      <Button sx={{margin: '1rem 2rem'}} variant="contained" onClick={handleAddModal}>add record</Button>
       <Filters onFilterChange={handleFilterChange} />
 
       {isError && <Alert severity="error">This is an error alert — check it out!</Alert>}
