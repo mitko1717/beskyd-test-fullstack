@@ -14,7 +14,7 @@ export interface IParams {
 }
 
 export interface IModalProps {
-  id?: number
+  id?: number;
   isOpen: boolean;
   handleOpenModal: () => void;
 }

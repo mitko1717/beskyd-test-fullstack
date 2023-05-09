@@ -15,7 +15,7 @@ const List = () => {
   const queryClient = useQueryClient();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [idToEdit, setIsToEdit] = useState<number>(1)
+  const [idToEdit, setIsToEdit] = useState<number>(1);
 
   const handleAddModal = () => {
     setIsAddModalOpen((prev) => !prev);
@@ -93,7 +93,10 @@ const List = () => {
         <>
           <Button
             variant="contained"
-            onClick={() => {setIsToEdit(params.row.id); handleEditModal()}}
+            onClick={() => {
+              setIsToEdit(params.row.id);
+              handleEditModal();
+            }}
           >
             &#x270D;
           </Button>
@@ -111,7 +114,11 @@ const List = () => {
   return (
     <div>
       <AddModal isOpen={isAddModalOpen} handleOpenModal={handleAddModal} />
-      <EditModal isOpen={isEditModalOpen} handleOpenModal={handleEditModal} id={idToEdit}/>
+      <EditModal
+        isOpen={isEditModalOpen}
+        handleOpenModal={handleEditModal}
+        id={idToEdit}
+      />
       <Button
         sx={{ margin: "1rem 2rem" }}
         variant="contained"

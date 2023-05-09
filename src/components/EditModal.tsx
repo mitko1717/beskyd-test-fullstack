@@ -3,7 +3,14 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { Field, useFormik, Formik } from "formik";
-import { FormControl, Grid, Input, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  Grid,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { recordService } from "../service/RecordService";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "react-query";
@@ -15,19 +22,26 @@ import { formSchema } from "../helpers/formSchema";
 import { initialValues } from "../helpers/initValEdit";
 import { style } from "../helpers/modalStyle";
 
-export default function EditModal({ isOpen, handleOpenModal, id }: IModalProps) {
+export default function EditModal({
+  isOpen,
+  handleOpenModal,
+  id,
+}: IModalProps) {
   const queryClient = useQueryClient();
-  
-  const editRecord = useMutation((formData: IEditRecord) => recordService.updateRecord(id!, formData), {
-    onSuccess: () => {
-      queryClient.refetchQueries(REQ_KEY);
-      handleOpenModal()
-      toast.success('record edited successfully!');
-    },
-    onError: (err: AxiosError) => {
-      toast.error(`wasnt edited! ${err.message}`);
+
+  const editRecord = useMutation(
+    (formData: IEditRecord) => recordService.updateRecord(id!, formData),
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(REQ_KEY);
+        handleOpenModal();
+        toast.success("record edited successfully!");
+      },
+      onError: (err: AxiosError) => {
+        toast.error(`wasnt edited! ${err.message}`);
+      },
     }
-  });
+  );
 
   const handleSubmit = (values: IEditRecord) => {
     const formData = {
@@ -37,16 +51,16 @@ export default function EditModal({ isOpen, handleOpenModal, id }: IModalProps) 
       role: values.role,
       status: values.status,
     };
-    editRecord.mutate(formData)
+    editRecord.mutate(formData);
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: formSchema,
     onSubmit: (values) => {
-      handleSubmit(values)
+      handleSubmit(values);
       formik.resetForm();
-    }
+    },
   });
 
   return (
@@ -89,7 +103,9 @@ export default function EditModal({ isOpen, handleOpenModal, id }: IModalProps) 
               <Grid item xs={12}>
                 <FormControl
                   fullWidth
-                  error={formik.touched.address && Boolean(formik.errors.address)}
+                  error={
+                    formik.touched.address && Boolean(formik.errors.address)
+                  }
                 >
                   <InputLabel htmlFor="address">Address</InputLabel>
                   <Field
@@ -175,7 +191,11 @@ export default function EditModal({ isOpen, handleOpenModal, id }: IModalProps) 
                 </FormControl>
               </Grid>
 
-              <Button variant="contained" type="submit" style={{ margin: '1rem' }}>
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ margin: "1rem" }}
+              >
                 add
               </Button>
             </Grid>

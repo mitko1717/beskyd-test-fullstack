@@ -3,7 +3,14 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { Field, useFormik, Formik } from "formik";
-import { FormControl, Grid, Input, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  FormControl,
+  Grid,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { recordService } from "../service/RecordService";
 import toast from "react-hot-toast";
 import { IAddRecord } from "../types/addRecord";
@@ -17,17 +24,20 @@ import { style } from "../helpers/modalStyle";
 
 export default function AddModal({ isOpen, handleOpenModal }: IModalProps) {
   const queryClient = useQueryClient();
-  
-  const addRecord = useMutation((formData: IAddRecord) => recordService.createRecord(formData), {
-    onSuccess: () => {
-      queryClient.refetchQueries(REQ_KEY);
-      handleOpenModal()
-      toast.success('record added successfully!');
-    },
-    onError: (err: AxiosError) => {
-      toast.error(`wasnt added! ${err.message}`);
+
+  const addRecord = useMutation(
+    (formData: IAddRecord) => recordService.createRecord(formData),
+    {
+      onSuccess: () => {
+        queryClient.refetchQueries(REQ_KEY);
+        handleOpenModal();
+        toast.success("record added successfully!");
+      },
+      onError: (err: AxiosError) => {
+        toast.error(`wasnt added! ${err.message}`);
+      },
     }
-  });
+  );
 
   const handleSubmit = (values: IAddRecord) => {
     const formData = {
@@ -37,16 +47,16 @@ export default function AddModal({ isOpen, handleOpenModal }: IModalProps) {
       role: values.role,
       status: values.status,
     };
-    addRecord.mutate(formData)
+    addRecord.mutate(formData);
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: formSchema,
     onSubmit: (values) => {
-      handleSubmit(values)
+      handleSubmit(values);
       formik.resetForm();
-    }
+    },
   });
 
   return (
@@ -88,7 +98,9 @@ export default function AddModal({ isOpen, handleOpenModal }: IModalProps) {
               <Grid item xs={12}>
                 <FormControl
                   fullWidth
-                  error={formik.touched.address && Boolean(formik.errors.address)}
+                  error={
+                    formik.touched.address && Boolean(formik.errors.address)
+                  }
                 >
                   <InputLabel htmlFor="address">Address</InputLabel>
                   <Field
@@ -174,7 +186,11 @@ export default function AddModal({ isOpen, handleOpenModal }: IModalProps) {
                 </FormControl>
               </Grid>
 
-              <Button variant="contained" type="submit" style={{ margin: '1rem' }}>
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ margin: "1rem" }}
+              >
                 add
               </Button>
             </Grid>
