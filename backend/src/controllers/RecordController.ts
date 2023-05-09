@@ -19,6 +19,17 @@ export class RecordController {
     }
   }
 
+
+  public findOneRecord = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const record = await this.recordService.findOneRecord(parseInt(req.params.id));
+      if (!record) return res.status(404).json({ error: 'Record not found' });
+      res.json(record);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public createRecord = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { name, address, amount, role, status } = req.body as AddRecordDTO;
