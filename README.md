@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started
 root:
 npm start
 

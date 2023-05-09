@@ -1,10 +1,23 @@
 import { Record } from "../entity/Record";
 import { AddRecordDTO } from "../dtos/addRecord.dto";
 import { EditRecordDTO } from "../dtos/editRecord.dto";
+import { IParams } from "../types/getAllParams";
 
 export class RecordService {
-  public async getAllRecords() {
-    return Record.find();
+  public async getAllRecords({ name, status, role }: IParams) {
+    const query = Record.createQueryBuilder('record');
+  
+    query
+      .andWhere(
+        name && name.length >= 3
+          ? 'record.name ILIKE :name OR record.address ILIKE :name'
+          : '1=1',
+        { name: `%${name}%` }
+      )
+      .andWhere(status ? 'record.status = :status' : '1=1', { status })
+      .andWhere(role ? 'record.role = :role' : '1=1', { role });
+  
+    return await query.getMany();;
   }
 
   async findOneRecord(id: number) {

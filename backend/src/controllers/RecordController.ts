@@ -16,7 +16,12 @@ export class RecordController {
     next: NextFunction
   ) => {
     try {
-      const records = await this.recordService.getAllRecords();
+      const { name, role, status } = req.query;
+      const records = await this.recordService.getAllRecords({
+        name: name?.toString(),
+        role: role?.toString(),
+        status: status?.toString(),
+      });
       res.json(records);
     } catch (error) {
       next(error);

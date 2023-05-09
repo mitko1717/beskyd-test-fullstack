@@ -37,7 +37,7 @@ const Filters = ({ onFilterChange }: IFiltersProps) => {
     <Grid container spacing={2} sx={{ margin: "0 1rem" }}>
       <Grid item sx={{ marginBottom: "1rem" }}>
         <TextField
-          label="Name"
+          label="Name (min 3 char.)"
           variant="outlined"
           value={name}
           onChange={(e) => handleInputChange("name", e.target.value)}
